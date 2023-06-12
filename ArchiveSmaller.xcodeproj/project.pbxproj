@@ -11,6 +11,7 @@
 		FC5050C22A361A9F005596A3 /* HoverableSystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5050C12A361A9F005596A3 /* HoverableSystemIcon.swift */; };
 		FC5050C42A362FDE005596A3 /* ErrorSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5050C32A362FDE005596A3 /* ErrorSheet.swift */; };
 		FC5050CC2A36DD2B005596A3 /* Protection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5050CB2A36DD2B005596A3 /* Protection.swift */; };
+		FC5050CE2A36E367005596A3 /* ClearBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5050CD2A36E367005596A3 /* ClearBackgroundView.swift */; };
 		FC91105E2A35909E00D32FC6 /* ArchiveSmallerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC91105D2A35909E00D32FC6 /* ArchiveSmallerApp.swift */; };
 		FC9110602A35909E00D32FC6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC91105F2A35909E00D32FC6 /* ContentView.swift */; };
 		FC9110622A35909F00D32FC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC9110612A35909F00D32FC6 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		FC5050C32A362FDE005596A3 /* ErrorSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorSheet.swift; sourceTree = "<group>"; };
 		FC5050C82A36D786005596A3 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FC5050CB2A36DD2B005596A3 /* Protection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protection.swift; sourceTree = "<group>"; };
+		FC5050CD2A36E367005596A3 /* ClearBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBackgroundView.swift; sourceTree = "<group>"; };
 		FC91105A2A35909E00D32FC6 /* ArchiveSmaller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArchiveSmaller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC91105D2A35909E00D32FC6 /* ArchiveSmallerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSmallerApp.swift; sourceTree = "<group>"; };
 		FC91105F2A35909E00D32FC6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				FC91107C2A35BC5700D32FC6 /* ExcludeInput.swift */,
 				FC91105F2A35909E00D32FC6 /* ContentView.swift */,
 				FC5050C32A362FDE005596A3 /* ErrorSheet.swift */,
+				FC5050CD2A36E367005596A3 /* ClearBackgroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 				FC9110792A35B4A800D32FC6 /* Preset.swift in Sources */,
 				FC91106D2A35915F00D32FC6 /* DropDelegate.swift in Sources */,
 				FC9110772A35A4C000D32FC6 /* FileManager.swift in Sources */,
+				FC5050CE2A36E367005596A3 /* ClearBackgroundView.swift in Sources */,
 				FC91105E2A35909E00D32FC6 /* ArchiveSmallerApp.swift in Sources */,
 				FC9110802A35C61500D32FC6 /* Alerts.swift in Sources */,
 				FC5050C42A362FDE005596A3 /* ErrorSheet.swift in Sources */,

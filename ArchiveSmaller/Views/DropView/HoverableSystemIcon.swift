@@ -20,7 +20,7 @@ struct HoverableSystemIcon: View {
             .resizable()
             .scaledToFit()
             .foregroundColor(hovered ? hoveredColor : initialColor)
-            .animation(.easeInOut(duration: animationDuration))
+            .animation(hovered ? .linear(duration: animationDuration) : nil)
            
     }
         

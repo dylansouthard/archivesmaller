@@ -22,7 +22,7 @@
 import SwiftUI
 
 struct DropView: View {
-    let txt:String? = nil
+    var txt:String? = nil
     @Binding var disabled:Bool
     let action:(URL, DroppableType)->Void
     @State private var allowDrag:Bool = true
@@ -40,19 +40,24 @@ struct DropView: View {
                 Rectangle()
                     .fill(hoveredColor.opacity(0.1))
                     .frame(width: width, height: geometry.size.height)
+                    
             }
             .frame(width:width, height:width)
             .clipShape(Ellipse())
-            
+           
             Ellipse()
                 .stroke(initialColor.opacity(0.2), lineWidth: 4)
-                .animation(.linear(duration: anidur))
+                .animation(hovered ? .linear(duration: anidur) : nil)
                 .frame(width:width, height:width)
             VStack {
                 HoverableSystemIcon(hovered:$hovered, initialColor:initialColor, hoveredColor:hoveredColor, animationDuration:anidur)
                     .frame(width:100)
                 
-                   if let t = txt { Text(t)}
+                   if let t = txt {
+                       Text(t)
+                           .font(.headline)
+                           .padding()
+                   }
                 
                 
             }
@@ -65,11 +70,12 @@ struct DropView: View {
             )
             .padding()
             .padding(.horizontal, 50)
-            .allowsHitTesting(allowDrag && !disabled)
-            .onHover { isHovering in
-                withAnimation {
-                    self.hovered = isHovering
-                }
+            
+        }
+        .allowsHitTesting(allowDrag && !disabled)
+        .onHover { isHovering in
+            withAnimation {
+                self.hovered = isHovering
             }
         }
         

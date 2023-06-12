@@ -28,6 +28,7 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+           
             VStack {
                 Picker("Preset", selection:$selectedPreset) {
                     Text("none").tag("none")
@@ -45,50 +46,55 @@ struct ContentView: View {
                         self.ac.toExcludeExact = []
                     }
                 }
-            }
-            ExcludeInput(label: "Exclude", txt:$ac.toExcludeTxt, values:$ac.toExclude)
-            ExcludeInput(label: "Exclude Exact", txt:$ac.toExcludeExactTxt, values:$ac.toExcludeExact)
-            Button("Save Preset") {
-                var name:String = selectedPreset
-                if name == "none" {
-                    name = Alert.GetUserInput(message: "Enter a name for your preset", placeholderText: "name") ?? "none"
+                ExcludeInput(label: "Exclude", txt:$ac.toExcludeTxt, values:$ac.toExclude)
+                ExcludeInput(label: "Exclude Exact", txt:$ac.toExcludeExactTxt, values:$ac.toExcludeExact)
+                Button("Save Preset") {
+                    var name:String = selectedPreset
+                    if name == "none" {
+                        name = Alert.GetUserInput(message: "Enter a name for your preset", placeholderText: "name") ?? "none"
+                    }
+                    
+                    if name == "none" {return}
+                    
+                    let p = Preset(name: name, excludeAny: ac.toExclude, excludeExact: ac.toExcludeExact)
+                    self.selectedPreset = name
+                    Prefs.savePresets(p)
                 }
-                
-                if name == "none" {return}
-                
-                let p = Preset(name: name, excludeAny: ac.toExclude, excludeExact: ac.toExcludeExact)
-                self.selectedPreset = name
-                Prefs.savePresets(p)
-            }
-            Divider()
-            
-            HStack {
-                Spacer()
-                Toggle(isOn: $ac.createZip) {
-                    Text("Create .zip archive")
-                }
-            }
-            
-            DropView(disabled:$ac.inProcess){url, _ in
-                self.ac.url = url
-                self.ac.execute()
             }
             .padding()
             
-            HStack {
-                Text(ac.progressTxt)
-                
-                if ac.inProcess {
+            Divider()
+            VStack {
+                Spacer()
+                HStack {
                     Spacer()
-                    Button("Cancel") {
-                        self.ac.cancelProcess()
+                    Toggle(isOn: $ac.createZip) {
+                        Text("Create .zip archive")
                     }
                 }
+                
+                DropView(txt:"Drop your directory here", disabled:$ac.inProcess){url, _ in
+                    self.ac.url = url
+                    self.ac.execute()
+                }
+                .padding()
+                
+                HStack {
+                    Text(ac.progressTxt)
+                    
+                    if ac.inProcess {
+                        Spacer()
+                        Button("Cancel") {
+                            self.ac.cancelProcess()
+                        }
+                    }
+                }
+                
+                Spacer()
             }
+            .padding()
         }
-
-        .frame(width:600, height:600)
-        .padding()
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .sheet(isPresented: $ac.showErrorMessage) {
             ErrorSheet(errors: $ac.errors, showing:$ac.showErrorMessage)
         }
