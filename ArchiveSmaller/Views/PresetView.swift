@@ -28,8 +28,10 @@ struct PresetView: View {
                     self.ac.toExcludeExact = []
                 }
             }
-            ExcludeInput(label: "Exclude", txt:$ac.toExcludeTxt, values:$ac.toExclude, onCommit: ac.commitTextValues)
             ExcludeInput(label: "Exclude Exact", txt:$ac.toExcludeExactTxt, values:$ac.toExcludeExact, onCommit: ac.commitTextValues)
+                .help("Will exclude all subdirectories whose names contain the specified text.")
+            ExcludeInput(label: "Exclude Partial", txt:$ac.toExcludeTxt, values:$ac.toExclude, onCommit: ac.commitTextValues)
+                .help("Will exclude all subdirectories named exacly as specified")
             HStack {
                 Button("Save Preset") {
                     var name:String = selectedPreset

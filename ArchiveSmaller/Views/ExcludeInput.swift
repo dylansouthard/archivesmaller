@@ -30,9 +30,9 @@ struct ExcludeInput: View {
     var body: some View {
         HStack {
             Text(label)
-            TextField("", text: $txt, onCommit: {
-                onCommit()
-            })
+     
+            TextField("Values separated by commas (ex: node_modules, build, .git)", text: $txt, onCommit: onCommit)
+    
             .focused($isFocused)
             .onChange(of: isFocused) { newValue in
                 if !newValue {

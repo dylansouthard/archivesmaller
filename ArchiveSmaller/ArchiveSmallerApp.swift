@@ -26,6 +26,8 @@ struct ArchiveSmallerApp: App {
         WindowGroup {
             ContentView()
                 .background(ClearBackgroundView())
+                .font(.baseTxt)
+               
         }
     }
 }
