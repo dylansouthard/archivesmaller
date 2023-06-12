@@ -23,46 +23,13 @@ import SwiftUI
 
 struct ContentView: View {
    
-    @State var selectedPreset:String = "none"
-    @ObservedObject var ac = ArchiveController()
+    @ObservedObject var ac = ArchiveController.shared
 
     var body: some View {
         VStack {
            
-            VStack {
-                Picker("Preset", selection:$selectedPreset) {
-                    Text("none").tag("none")
-                    ForEach(ac.presetNames, id:\.self) {name in
-                        Text(name).tag(name)
-                    }
-                }
-                .onChange(of: selectedPreset) { value in
-                    if value != "none" {
-                        let p = Preset.withName(value)
-                        self.ac.toExclude = p.excludeAny
-                        self.ac.toExcludeExact = p.excludeExact
-                    } else {
-                        self.ac.toExclude = []
-                        self.ac.toExcludeExact = []
-                    }
-                }
-                ExcludeInput(label: "Exclude", txt:$ac.toExcludeTxt, values:$ac.toExclude)
-                ExcludeInput(label: "Exclude Exact", txt:$ac.toExcludeExactTxt, values:$ac.toExcludeExact)
-                Button("Save Preset") {
-                    var name:String = selectedPreset
-                    if name == "none" {
-                        name = Alert.GetUserInput(message: "Enter a name for your preset", placeholderText: "name") ?? "none"
-                    }
-                    
-                    if name == "none" {return}
-                    
-                    let p = Preset(name: name, excludeAny: ac.toExclude, excludeExact: ac.toExcludeExact)
-                    self.selectedPreset = name
-                    Prefs.savePresets(p)
-                }
-            }
-            .padding()
             
+            PresetView()
             Divider()
             VStack {
                 Spacer()
@@ -73,7 +40,7 @@ struct ContentView: View {
                     }
                 }
                 
-                DropView(txt:"Drop your directory here", disabled:$ac.inProcess){url, _ in
+                DropView(txt:"Drop a directory here to archive", disabled:$ac.inProcess){url, _ in
                     self.ac.url = url
                     self.ac.execute()
                 }
@@ -95,6 +62,7 @@ struct ContentView: View {
             .padding()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        
         .sheet(isPresented: $ac.showErrorMessage) {
             ErrorSheet(errors: $ac.errors, showing:$ac.showErrorMessage)
         }

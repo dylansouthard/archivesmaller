@@ -24,23 +24,31 @@ struct ExcludeInput: View {
     var label:String
     @Binding var txt:String
     @Binding var values:[String]
-   
+    var onCommit:()->Void
+    @FocusState private var isFocused: Bool
+    
     var body: some View {
         HStack {
             Text(label)
             TextField("", text: $txt, onCommit: {
-                let arr = txt.components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                values = arr
+                onCommit()
             })
+            .focused($isFocused)
+            .onChange(of: isFocused) { newValue in
+                if !newValue {
+                    onCommit()
+                }
+            }
         }
         .onAppear{
             txt = values.joined(separator: ", ")
         }
     }
+
 }
 
 struct ExcludeInput_Previews: PreviewProvider {
     static var previews: some View {
-        ExcludeInput(label:"Exclude any", txt:.constant(""), values:.constant([])) 
+        ExcludeInput(label:"Exclude any", txt:.constant(""), values:.constant([])){}
     }
 }

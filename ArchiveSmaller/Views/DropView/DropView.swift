@@ -52,10 +52,12 @@ struct DropView: View {
             VStack {
                 HoverableSystemIcon(hovered:$hovered, initialColor:initialColor, hoveredColor:hoveredColor, animationDuration:anidur)
                     .frame(width:100)
+                    .padding(.top, txt != nil ? 40 : 0)
                 
                    if let t = txt {
                        Text(t)
                            .font(.headline)
+                           .multilineTextAlignment(.center)
                            .padding()
                    }
                 

@@ -93,6 +93,7 @@ class ArchiveController:ObservableObject {
             Alert.presentErrorAlert(title: "Invalid Directory", text: "Woah there! It looks like you are trying to archive \(url), which could cause you quite a headache. This app is for archiving snapshots of project and document folders, not those critical to your system.")
             return
         }
+        self.commitTextValues()
         self.errors = []
         self.cancel = false
         self.progressTxt = ""
@@ -146,6 +147,11 @@ class ArchiveController:ObservableObject {
         self.cancel = true
         FileManager.currentZipProcess?.terminate()
         self.status = .cancelled
+    }
+    
+    func commitTextValues() {
+        self.toExclude = toExcludeTxt.components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        self.toExcludeExact = toExcludeExactTxt.components(separatedBy: ",").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
     }
     
 }

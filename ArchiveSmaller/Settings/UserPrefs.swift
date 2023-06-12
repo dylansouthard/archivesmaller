@@ -37,6 +37,7 @@ class Prefs {
         get {UserDefaults.standard.array(forKey: "presets") as? [String] ?? []}
         set {
             UserDefaults.standard.set(newValue, forKey: "presets")
+            print("setting archive controller to \(newValue)")
             ArchiveController.shared.presetNames = newValue
         }
     }
@@ -55,6 +56,16 @@ class Prefs {
         
         UserDefaults.standard.set(preset.excludeExact, forKey: "\(preset.name)_exact")
         UserDefaults.standard.set(preset.excludeAny, forKey: "\(preset.name)_any")
+    }
+    
+    static func deletePreset(_ preset:Preset) {
+        var pNames = presetNames
+        
+        pNames.removeAll(where:{ $0 == preset.name})
+        presetNames = pNames
+        
+        UserDefaults.standard.removeObject(forKey: "\(preset.name)_exact")
+        UserDefaults.standard.removeObject(forKey: "\(preset.name)_any")
     }
     
     static func exactExclusions(for name:String)->[String] {
