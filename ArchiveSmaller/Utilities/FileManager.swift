@@ -25,7 +25,7 @@ extension FileManager {
     
     static var currentZipProcess:Process?
     
-    static func CreateFolder(withName name:String, at destination:URL, withIntermediateDirectories:Bool = false)->URL? {
+    static func createFolder(withName name:String, at destination:URL, withIntermediateDirectories:Bool = false)->URL? {
         
         let folder = destination.appendingPathComponent(name)
         
@@ -40,7 +40,7 @@ extension FileManager {
             return folder
             
         } catch let error {
-            Alert.PresentErrorAlert(text: "Error creating folder!\n\(error)")
+            Alert.presentErrorAlert(title:"Error creating folder!", text: "\(error)")
             return nil
         }
     }
@@ -96,7 +96,7 @@ extension FileManager {
         }
     }
     
-    static func DeleteFile(atURL url:URL, recycle:Bool = false, onComplete:()->Void = {}) {
+    static func deleteFile(atURL url:URL, recycle:Bool = false, onComplete:()->Void = {}) {
         do {
             
             if recycle {
@@ -109,7 +109,7 @@ extension FileManager {
             onComplete()
         } catch let error {
             
-            Alert.PresentErrorAlert(text: "Error deleting file: \(url.lastPathComponent)!" + error.localizedDescription)
+            Alert.presentErrorAlert(title:"Error Deleting File!", text:"\(url.lastPathComponent)!" + error.localizedDescription)
             
         }
     }
@@ -140,7 +140,7 @@ extension FileManager {
                     onComplete(destinationURL)
                 }
             } catch let error {
-                Alert.PresentErrorAlert(text: "Error zipping file \(error)")
+                Alert.presentErrorAlert(title: "Error zipping file!", text: "\(error)")
             }
         }
     }

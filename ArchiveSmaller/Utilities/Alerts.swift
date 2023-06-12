@@ -25,17 +25,18 @@ import Cocoa
 
 class Alert:NSObject {
     
-    static func PresentErrorAlert(text:String) {
+    static func presentErrorAlert(title:String, text:String) {
         
         let alert = NSAlert()
-        alert.messageText = text
+        alert.messageText = title
+        alert.informativeText = text
         alert.alertStyle = NSAlert.Style.warning
         alert.addButton(withTitle: "OK")
         let _ = alert.runModal()
         
     }
     
-    static func PresentConfirmationAlert(messageText text:String, confirmText:String, cancelText:String = "Nevermind", onConfirm:@escaping ()->Void, onCancel: @escaping ()->Void = {}) {
+    static func presentConfirmationAlert(messageText text:String, confirmText:String, cancelText:String = "Nevermind", onConfirm:@escaping ()->Void, onCancel: @escaping ()->Void = {}) {
         
         let alert = NSAlert()
         alert.messageText = text

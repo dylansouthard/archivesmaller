@@ -89,6 +89,10 @@ class ArchiveController:ObservableObject {
     
     func execute() {
         guard let url = self.url else {return}
+        guard !url.isRestricted else {
+            Alert.presentErrorAlert(title: "Invalid Directory", text: "Woah there! It looks like you are trying to archive \(url), which could cause you quite a headache. This app is for archiving snapshots of project and document folders, not those critical to your system.")
+            return
+        }
         self.errors = []
         self.cancel = false
         self.progressTxt = ""
@@ -100,7 +104,7 @@ class ArchiveController:ObservableObject {
                 FileManager.zip(newURL) {zipURL in
                     self.status = .success
                     self.showErrors()
-                   FileManager.DeleteFile(atURL: zipURL.deletingPathExtension())
+                   FileManager.deleteFile(atURL: zipURL.deletingPathExtension())
                 }
             } else {
                 self.status = .success
@@ -113,7 +117,7 @@ class ArchiveController:ObservableObject {
   
         let srcName = url.lastPathComponent
         let destName = srcName + Prefs.archiveName + Date.currentString(Prefs.dateFormat)
-        guard let newFolder = FileManager.CreateFolder(withName: destName, at: url.deletingLastPathComponent()) else {return}
+        guard let newFolder = FileManager.createFolder(withName: destName, at: url.deletingLastPathComponent()) else {return}
 
         FileManager.enumerateAndCopy(
             from: url,
